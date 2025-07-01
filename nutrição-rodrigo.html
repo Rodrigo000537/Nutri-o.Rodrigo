@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Guia de Nutrição Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ANIMAÇÕES */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInFromRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* TELA INICIAL */
+    .tela-inicial {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background-attachment: fixed;
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tela-inicial::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.1)" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,128C960,128,1056,192,1152,208C1248,224,1344,192,1392,176L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') bottom/cover no-repeat;
+    }
+
+    .conteudo-inicial {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      width: 100%;
+      gap: 60px;
+      z-index: 2;
+      position: relative;
+    }
+
+    .texto-inicial {
+      flex: 1;
+      animation: slideInFromLeft 1s ease-out;
+    }
+
+    .texto-inicial h1 {
+      font-size: 3.2em;
+      margin-bottom: 25px;
+      font-weight: 800;
+      text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+      line-height: 1.2;
+      background: linear-gradient(45deg, #fff, #f0f0f0);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .texto-inicial p {
+      font-size: 1.3em;
+      margin-bottom: 35px;
+      line-height: 1.6;
+      opacity: 0.95;
+      font-weight: 300;
+    }
+
+    .texto-inicial button {
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      color: white;
+      font-size: 1.3em;
+      padding: 18px 40px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .texto-inicial button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .texto-inicial button:hover::before {
+      left: 100%;
+    }
+
+    .texto-inicial button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(255,107,107,0.6);
+    }
+
+    .imagem-inicial {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      animation: slideInFromRight 1s ease-out;
+    }
+
+    .imagem-inicial img {
+      width: 100%;
+      max-width: 500px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      transition: transform 0.4s ease;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .imagem-inicial img:hover {
+      transform: scale(1.05) rotate(2deg);
+    }
+
+    /* MENU */
+    .menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 60px 40px;
+      position: relative;
+    }
+
+    .menu::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.05)" fill-opacity="1" d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,122.7C960,139,1056,149,1152,144C1248,139,1344,117,1392,106.7L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top/cover no-repeat;
+    }
+
+    .menu h2 {
+      font-size: 3em;
+      margin-bottom: 60px;
+      color: white;
+      text-align: center;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .botoes-opcoes {
+      display: flex;
+      gap: 80px;
+      flex-wrap: wrap;
+      justify-content: center;
+      z-index: 2;
+      position: relative;
+    }
+
+    .botao-opcao {
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 30px;
+      border-radius: 25px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      animation: fadeInUp 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
+      min-width: 250px;
+    }
+
+    .botao-opcao::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      transform: translateY(100%);
+      transition: transform 0.4s ease;
+      z-index: 1;
+    }
+
+    .botao-opcao:hover::before {
+      transform: translateY(0);
+    }
+
+    .botao-opcao:hover {
+      transform: translateY(-15px) scale(1.05);
+      box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+    }
+
+    .botao-opcao:hover .opcao-content {
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .opcao-content {
+      transition: all 0.4s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    .botao-opcao img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 20px;
+      transition: transform 0.4s ease;
+    }
+
+    .botao-opcao span {
+      display: block;
+      font-weight: 600;
+      font-size: 1.3em;
+      color: #2c3e50;
+      transition: color 0.4s ease;
+    }
+
+    /* TELAS DE FUNÇÕES */
+    .tela {
+      display: none;
+      padding: 60px 40px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      position: relative;
+    }
+
+    .tela::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="rgba(255,255,255,0.3)" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,149.3C672,149,768,203,864,208C960,213,1056,171,1152,160C1248,149,1344,171,1392,181.3L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>') top/cover no-repeat;
+    }
+
+    .tela.ativa {
+      display: block;
+      animation: fadeInUp 0.6s ease-out;
+    }
+
+    .tela h2 {
+      color: #2c3e50;
+      font-size: 2.8em;
+      text-align: center;
+      margin-bottom: 40px;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .voltar {
+      margin: 40px 0;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .voltar button {
+      padding: 15px 35px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: 600;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+    }
+
+    .voltar button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(102,126,234,0.6);
+    }
+
+    /* CALCULADORA */
+    .calculadora-container {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 25px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+
+    table {
+      width: 100%;
+      margin: 30px 0;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      padding: 15px 12px;
+      text-align: left;
+      border-bottom: 1px solid #f1f3f4;
+    }
+
+    th {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-size: 0.9em;
+    }
+
+    td {
+      transition: background-color 0.3s ease;
+    }
+
+    tbody tr:hover {
+      background-color: #f8f9ff;
+    }
+
+    select, input[type="number"], button {
+      padding: 10px 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    select:focus, input[type="number"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+    }
+
+    button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(102,126,234,0.4);
+    }
+
+    .add-button {
+      display: block;
+      margin: 30px auto;
+      padding: 15px 40px;
+      font-size: 1.2em;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #ff6b6b, #feca57);
+      box-shadow: 0 8px 25px rgba(255,107,107,0.4);
+    }
+
+    .add-button:hover {
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(255,107,107,0.6);
+    }
+
+    .resultado, .shakes {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 35px;
+      border-radius: 20px;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      position: relative;
+      z-index: 2;
+    }
+
+    .resultado h3, .shakes h3 {
+      color: #2c3e50;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .resultado p {
+      font-size: 1.1em;
+      margin-bottom: 12px;
+      padding: 10px 15px;
+      background: linear-gradient(45deg, #f8f9ff, #fff);
+      border-radius: 10px;
+      border-left: 4px solid #667eea;
+    }
+
+    /* FORMULÁRIO */
+    .form-container {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 25px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-row {
+      display: flex;
+      gap: 25px;
+      margin-bottom: 25px;
+      flex-wrap: wrap;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #2c3e50;
+      font-size: 1.1em;
+    }
+
+    .form-group select, .form-group input {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e9ecef;
+      border-radius: 12px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    .form-group select:focus, .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+      transform: translateY(-2px);
+    }
+
+    .gerar-button {
+      width: 100%;
+      padding: 18px;
+      font-size: 1.3em;
+      margin-top: 30px;
+      border-radius: 50px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      box-shadow: 0 10px 30px rgba(102,126,234,0.4);
+    }
+
+    .gerar-button:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 20px 40px rgba(102,126,234,0.6);
+    }
+
+    /* SHAKES */
+    .shake-item {
+      margin-bottom: 25px;
+      padding: 20px;
+      background: linear-gradient(45deg, #f8f9ff, #fff);
+      border-radius: 15px;
+      border-left: 5px solid #667eea;
+      transition: transform 0.3s ease;
+    }
+
+    .shake-item:hover {
+      transform: translateX(10px);
+    }
+
+    .shake-item strong {
+      color: #2c3e50;
+      font-size: 1.2em;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 968px) {
+      .conteudo-inicial {
+        flex-direction: column;
+        text-align: center;
+        gap: 40px;
+      }
+
+      .texto-inicial h1 {
+        font-size: 2.5em;
+      }
+
+      .botoes-opcoes {
+        flex-direction: column;
+        gap: 40px;
+      }
+
+      .form-row {
+        flex-direction: column;
+      }
+
+      .form-group {
+        min-width: auto;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th, td {
+        padding: 10px 8px;
+      }
+
+      .calculadora-container, .form-container {
+        padding: 25px;
+        margin: 20px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tela {
+        padding: 40px 20px;
+      }
+
+      .texto-inicial h1 {
+        font-size: 2em;
+      }
+
+      .menu h2 {
+        font-size: 2.2em;
+      }
+
+      .tela h2 {
+        font-size: 2.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TELA INICIAL -->
+  <div id="inicio" class="tela-inicial">
+    <div class="conteudo-inicial">
+      <div class="texto-inicial">
+        <h1>Rodrigo: Fazendo a Diferença na Vida das Pessoas</h1>
+        <p>Minha missão é promover sua saúde e bem-estar através de uma nutrição consciente e personalizada com tecnologia de ponta.</p>
+        <button onclick="mostrarTela('menu')">Começar Agora ✨</button>
+      </div>
+      <div class="imagem-inicial">
+        <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Alimentação Saudável e Colorida" />
+      </div>
+    </div>
+  </div>
+
+  <!-- MENU -->
+  <div id="menu" class="menu">
+    <h2>Escolha sua jornada nutricional:</h2>
+    <div class="botoes-opcoes">
+      <div class="botao-opcao" onclick="mostrarTela('calculadora')">
+        <div class="opcao-content">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Calculadora Nutricional">
+          <span>🧮 Calculadora Nutricional</span>
+        </div>
+      </div>
+      <div class="botao-opcao" onclick="mostrarTela('plano')">
+        <div class="opcao-content">
+          <img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Planejamento Alimentar">
+          <span>🍽️ O que devo comer?</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALCULADORA NUTRICIONAL -->
+  <div id="calculadora" class="tela">
+    <h2>⚡ Calculadora Nutricional Avançada</h2>
+    <div class="calculadora-container">
+      <table>
+        <thead>
+          <tr>
+            <th>🥗 Alimento</th>
+            <th>⚖️ Quantidade (g)</th>
+            <th>🥩 Proteínas (g)</th>
+            <th>🔥 Calorias (kcal)</th>
+            <th>🍞 Carboidratos (g)</th>
+            <th>🥑 Gorduras (g)</th>
+            <th>🎯 Ação</th>
+          </tr>
+        </thead>
+        <tbody id="tabela"></tbody>
+      </table>
+      <button class="add-button" onclick="addAlimento()">➕ Adicionar Alimento</button>
+      <div class="resultado" id="totais">
+        <h3>📊 Totais Nutricionais</h3>
+        <p>Adicione alimentos para ver os totais calculados automaticamente</p>
+      </div>
+    </div>
+    <div class="voltar">
+      <button onclick="mostrarTela('menu')">← Voltar ao Menu</button>
+    </div>
+  </div>
+
+  <!-- O QUE DEVO COMER -->
+  <div id="plano" class="tela">
+    <h2>🎯 Plano Personalizado de Nutrição</h2>
+    <div class="form-container">
+      <form id="formulario">
+        <div class="form-row">
+          <div class="form-group">
+            <label>👤 Gênero:</label>
+            <select name="genero">
+              <option value="masculino">🙋‍♂️ Masculino</option>
+              <option value="feminino">🙋‍♀️ Feminino</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>🎂 Idade:</label>
+            <select name="idade" id="idade"></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>⚖️ Peso (kg):</label>
+            <select name="peso" id="peso"></select>
+          </div>
+          <div class="form-group">
+            <label>📏 Altura (cm):</label>
+            <select name="altura" id="altura"></select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>🏃‍♀️ Nível de Atividade:</label>
+            <select name="atividade">
+              <option value="1.2">😴 Sedentário (pouco ou nenhum exercício)</option>
+              <option value="1.375">🚶‍♀️ Exercício leve (1-3 dias/semana)</option>
+              <option value="1.55">🏃‍♀️ Moderado (3-5 dias/semana)</option>
+              <option value="1.725">💪 Pesado (6-7 dias/semana)</option>
+              <option value="1.9">🏆 Atleta (2x por dia, treinos intensos)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>📊 % de gordura corporal:</label>
+            <input type="number" name="gordura" min="0" max="100" placeholder="Ex: 15">
+          </div>
+        </div>
+        <button type="button" class="gerar-button" onclick="gerarPlano()">🚀 Gerar Meu Plano Personalizado</button>
+      </form>
+    </div>
+    
+    <div class="resultado" id="resultado" style="display:none;">
+      <h3>📈 Seus Resultados Personalizados</h3>
+    </div>
+    
+    <div class="shakes" id="shakes" style="display:none;">
+      <h3>🥤 Receitas de Shakes Premium</h3>
+    </div>
+    
+    <div class="voltar">
+      <button onclick="mostrarTela('menu')">← Voltar ao Menu</button>
+    </div>
+  </div>
+
+  <script>
+    const dados = {
+      "Arroz": [2.7, 130, 28, 0.3],
+      "Feijão": [8.3, 127, 23.7, 0.5],
+      "Farofa": [5, 300, 50, 10],
+      "Tomate": [0.9, 18, 3.9, 0.2],
+      "Cenoura": [0.9, 41, 10, 0.2],
+      "Carne (Patinho)": [21, 160, 0, 7],
+      "Carne (Filé Mignon)": [22, 143, 0, 5],
+      "Carne (Fígado)": [20, 135, 3.9, 3.6],
+      "Carne (Frango)": [23, 165, 0, 4],
+      "Ovo": [13, 155, 1.1, 11],
+      "Guaraná": [0, 40, 10, 0],
+      "Coca Cola": [0, 42, 11, 0],
+      "Água": [0, 0, 0, 0],
+      "Suco Del Valle": [0.5, 50, 12, 0],
+      "Suco Maguary": [0.5, 48, 11, 0],
+      "Suco Do Bem": [0.5, 45, 10, 0],
+      "Suco Natural": [0.5, 40, 9, 0],
+      "Suco Tang": [0, 38, 9.4, 0],
+      "Abobrinha": [1.2, 17, 3.1, 0.3],
+      "Molho de Tomate": [1.2, 29, 6, 0.2],
+      "Farinha de Trigo": [10, 364, 76, 1],
+      "Farinha de Centeio": [7.3, 335, 75, 1.5],
+      "Aveia (flocos)": [12, 389, 66, 7],
+      "Aveia (farinha)": [13, 370, 65, 7],
+      "Leite de Soja": [3.5, 45, 2, 1.5],
+      "Leite Desnatado": [3.4, 35, 5, 0.1],
+      "Leite Integral": [3.3, 61, 5, 3.2],
+      "Óleo de Soja": [0, 884, 0, 100],
+      "Óleo de Girassol": [0, 884, 0, 100],
+      "Manteiga": [0.5, 717, 0, 81],
+      "Azeite de Oliva": [0, 884, 0, 100],
+      "Leite em Pó": [26, 496, 38, 27],
+      "Nescau": [6, 378, 75, 4],
+      "Toddy": [6, 380, 75, 4],
+      "Nesquik": [6, 390, 76, 3.5],
+      "Batata": [2, 77, 17, 0.1],
+      "Batata Doce": [1.6, 86, 20, 0],
+      "Alface": [1.4, 15, 2.9, 0.2],
+      "Brócolis": [2.8, 34, 7, 0.4],
+      "Amendoim": [26, 567, 16, 49],
+      "Açúcar": [0, 387, 100, 0]
+    };
+
+    function mostrarTela(id) {
+      // Esconder todas as telas
+      document.querySelectorAll(".tela, .tela-inicial, .menu").forEach(t => {
+        t.style.display = 'none';
+        t.classList.remove("ativa");
+      });
+      
+      // Mostrar a tela selecionada
+      const tela = document.getElementById(id);
+      if (id === 'menu') {
+        tela.style.display = 'flex';
+      } else if (id === 'inicio') {
+        tela.style.display = 'flex';
+      } else {
+        tela.style.display = 'block';
+        tela.classList.add("ativa");
+      }
+    }
+
+    function addAlimento() {
+      const tbody = document.getElementById("tabela");
+      const tr = document.createElement("tr");
+      tr.style.animation = "fadeInUp 0.5s ease-out";
+
+      // Coluna do alimento
+      const td1 = document.createElement("td");
+      const sel = document.createElement("select");
+      Object.keys(dados).forEach(k => {
+        const o = document.createElement("option");
+        o.value = k;
+        o.textContent = k;
+        sel.appendChild(o);
+      });
+      td1.appendChild(sel);
+      tr.appendChild(td1);
+
+      // Coluna da quantidade
+      const td2 = document.createElement("td");
+      const input = document.createElement("input");
+      input.type = "number";
+      input.value = 100;
+      input.min = 0;
+      input.oninput = calcularTotais;
+      td2.appendChild(input);
+      tr.appendChild(td2);
+
+      // Colunas dos valores nutricionais
+      for (let i = 0; i < 4; i++) {
+        const td = document.createElement("td");
+        td.textContent = "0";
+        td.style.fontWeight = "600";
+        td.style.color = "#2c3e50";
+        tr.appendChild(td);
+      }
+
+      // Coluna da ação
+      const td7 = document.createElement("td");
+      const btn = document.createElement("button");
+      btn.textContent = "🗑️";
+      btn.style.background = "linear-gradient(45deg, #ff6b6b, #ee5a52)";
+      btn.style.padding = "8px 12px";
+      btn.style.borderRadius = "8px";
+      btn.onclick = () => { 
+        tr.style.animation = "fadeInUp 0.3s ease-out reverse";
+        setTimeout(() => {
+          tr.remove(); 
+          calcularTotais(); 
+        }, 300);
+      };
+      td7.appendChild(btn);
+      tr.appendChild(td7);
+
+      sel.onchange = calcularTotais;
+      tbody.appendChild(tr);
+      calcularTotais();
+    }
+
+    function calcularTotais() {
+      let prot = 0, cal = 0, carb = 0, gord = 0;
+      
+      document.querySelectorAll("#tabela tr").forEach(tr => {
+        const sel = tr.querySelector("select");
+        const input = tr.querySelector("input");
+        
+        if (sel && input) {
+          const alimento = sel.value;
+          const qtd = parseFloat(input.value) || 0;
+          const [p, c, ca, g] = dados[alimento] || [0, 0, 0, 0];
+          
+          // Atualizar células da linha
+          tr.cells[2].textContent = ((p * qtd) / 100).toFixed(1);
+          tr.cells[3].textContent = ((c * qtd) / 100).toFixed(0);
+          tr.cells[4].textContent = ((ca * qtd) / 100).toFixed(1);
+          tr.cells[5].textContent = ((g * qtd) / 100).toFixed(1);
+          
+          // Somar totais
+          prot += (p * qtd) / 100;
+          cal += (c * qtd) / 100;
+          carb += (ca * qtd) / 100;
+          gord += (g * qtd) / 100;
+        }
+      });
+
+      document.getElementById("totais").innerHTML = `
+        <h3>📊 Totais Nutricionais</h3>
+        <p><strong>🥩 Proteínas:</strong> ${prot.toFixed(1)} g</p>
+        <p><strong>🔥 Calorias:</strong> ${cal.toFixed(0)} kcal</p>
+        <p><strong>🍞 Carboidratos:</strong> ${carb.toFixed(1)} g</p>
+        <p><strong>🥑 Gorduras:</strong> ${gord.toFixed(1)} g</p>
+      `;
+    }
+
+    // Preencher selects do formulário
+    for (let i = 12; i <= 100; i++) {
+      document.getElementById("idade").innerHTML += `<option value="${i}">${i} anos</option>`;
+    }
+    for (let i = 30; i <= 200; i++) {
+      document.getElementById("peso").innerHTML += `<option value="${i}">${i} kg</option>`;
+    }
+    for (let i = 140; i <= 220; i++) {
+      document.getElementById("altura").innerHTML += `<option value="${i}">${i} cm</option>`;
+    }
+
+    function gerarPlano() {
+      const f = document.forms["formulario"];
+      const peso = parseFloat(f.peso.value);
+      const altura = parseFloat(f.altura.value);
+      const idade = parseFloat(f.idade.value);
+      const genero = f.genero.value;
+      const atividade = parseFloat(f.atividade.value);
+      const gordura = parseFloat(f.gordura.value) || 20;
+
+      if (!peso || !altura || !idade) {
+        alert("⚠️ Por favor, preencha todos os campos obrigatórios!");
+        return;
+      }
+
+      const alturaM = altura / 100;
+      const imc = peso / (alturaM * alturaM);
+      
+      // Fórmula de Mifflin-St Jeor
+      const bmr = genero === "masculino"
+        ? (10 * peso + 6.25 * altura - 5 * idade + 5)
+        : (10 * peso + 6.25 * altura - 5 * idade - 161);
+      
+      const tmb = bmr * atividade;
+      const massaMagra = ((1 - (gordura / 100)) * peso).toFixed(1);
+
+      let classificacaoIMC = "";
+      let corIMC = "";
+      if (imc < 18.5) {
+        classificacaoIMC = "Abaixo do peso";
+        corIMC = "#3498db";
+      } else if (imc < 24.9) {
+        classificacaoIMC = "Peso normal";
+        corIMC = "#27ae60";
+      } else if (imc < 29.9) {
+        classificacaoIMC = "Sobrepeso";
+        corIMC = "#f39c12";
+      } else {
+        classificacaoIMC = "Obesidade";
+        corIMC = "#e74c3c";
+      }
+
+      document.getElementById("resultado").style.display = "block";
+      document.getElementById("resultado").innerHTML = `
+        <h3>📈 Seus Resultados Personalizados</h3>
+        <p><strong>📊 IMC:</strong> <span style="color: ${corIMC}; font-weight: bold;">${imc.toFixed(1)} (${classificacaoIMC})</span></p>
+        <p><strong>⚡ Taxa Metabólica Basal:</strong> ${bmr.toFixed(0)} kcal/dia</p>
+        <p><strong>🎯 Calorias para manter peso:</strong> ${tmb.toFixed(0)} kcal/dia</p>
+        <p><strong>💪 Massa magra estimada:</strong> ${massaMagra} kg</p>
+        <p><strong>📉 Para emagrecer:</strong> <span style="color: #e74c3c; font-weight: bold;">${(tmb * 0.8).toFixed(0)} kcal/dia</span></p>
+        <p><strong>📈 Para ganhar peso:</strong> <span style="color: #27ae60; font-weight: bold;">${(tmb * 1.15).toFixed(0)} kcal/dia</span></p>
+      `;
+
+      document.getElementById("shakes").style.display = "block";
+      document.getElementById("shakes").innerHTML = `
+        <h3>🥤 Receitas de Shakes Premium</h3>
+        <div class="shake-item">
+          <strong>🍎 Shake Emagrecedor Detox:</strong><br>
+          • 1/2 Maçã verde<br>
+          • 1 colher (chá) de canela<br>
+          • 200ml de leite desnatado<br>
+          • Gelo e hortelã fresca<br>
+          <em>💡 Rico em fibras e antioxidantes</em>
+        </div>
+        <div class="shake-item">
+          <strong>🍓 Shake Antioxidante Power:</strong><br>
+          • 1 xícara de morangos frescos<br>
+          • 1 colher (sopa) de linhaça<br>
+          • 200ml de água de coco<br>
+          • Adoçante natural (stevia)<br>
+          <em>💡 Combate o envelhecimento precoce</em>
+        </div>
+        <div class="shake-item">
+          <strong>🥕 Shake Detox Energizante:</strong><br>
+          • 1 Cenoura média<br>
+          • Suco de 2 laranjas<br>
+          • 1 pedaço pequeno de gengibre<br>
+          • Folhas de hortelã<br>
+          <em>💡 Aumenta a imunidade e energia</em>
+        </div>
+        <div class="shake-item">
+          <strong>🌿 Shake Verde Alcalinizante:</strong><br>
+          • Punhado de folhas de espinafre<br>
+          • 1/2 abacate maduro<br>
+          • 300ml de água de coco<br>
+          • Suco de 1/2 limão<br>
+          <em>💡 Equilibra o pH do organismo</em>
+        </div>
+        <div class="shake-item">
+          <strong>🍌 Shake Pós-Treino:</strong><br>
+          • 1 banana madura<br>
+          • 1 scoop de whey protein<br>
+          • 200ml de leite desnatado<br>
+          • 1 colher (sopa) de pasta de amendoim<br>
+          <em>💡 Recuperação muscular otimizada</em>
+        </div>
+      `;
+
+      // Scroll suave para os resultados
+      document.getElementById("resultado").scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Inicializar mostrando a tela inicial
+    mostrarTela('inicio');
+
+    // Adicionar alguns alimentos automaticamente quando a calculadora for aberta
+    document.addEventListener('DOMContentLoaded', function() {
+      // Adicionar efeitos de parallax suaves
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const parallaxElements = document.querySelectorAll('.tela-inicial::before, .menu::before');
+        
+        parallaxElements.forEach(element => {
+          const speed = 0.5;
+          element.style.transform = `translateY(${scrolled * speed}px)`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
