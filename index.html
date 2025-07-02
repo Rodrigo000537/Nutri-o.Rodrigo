@@ -631,7 +631,7 @@
       <div class="botao-opcao" onclick="mostrarTela('calculadora')">
         <div class="opcao-content">
           <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=400&q=80" alt="Calculadora Nutricional">
-          <span>🧮 Calculadora Nutricional</span>
+          <span>🖩 Calculadora Nutricional</span>
         </div>
       </div>
       <div class="botao-opcao" onclick="mostrarTela('plano')">
@@ -652,11 +652,11 @@
           <tr>
             <th>🥗 Alimento</th>
             <th>⚖️ Quantidade (g)</th>
-            <th>🥩 Proteínas (g)</th>
             <th>🔥 Calorias (kcal)</th>
+            <th>🥩 Proteínas (g)</th>
             <th>🍞 Carboidratos (g)</th>
             <th>🥑 Gorduras (g)</th>
-            <th>🎯 Ação</th>
+            <th>🗑️ Remover</th>
           </tr>
         </thead>
         <tbody id="tabela"></tbody>
@@ -714,6 +714,7 @@
           <div class="form-group">
             <label>📊 % de gordura corporal:</label>
             <input type="number" name="gordura" min="0" max="100" placeholder="Ex: 15">
+            </label>
           </div>
         </div>
         <button type="button" class="gerar-button" onclick="gerarPlano()">🚀 Gerar Meu Plano Personalizado</button>
@@ -735,47 +736,245 @@
 
   <script>
     const dados = {
-      "Arroz": [2.7, 130, 28, 0.3],
-      "Feijão": [8.3, 127, 23.7, 0.5],
-      "Farofa": [5, 300, 50, 10],
-      "Tomate": [0.9, 18, 3.9, 0.2],
-      "Cenoura": [0.9, 41, 10, 0.2],
-      "Carne (Patinho)": [21, 160, 0, 7],
-      "Carne (Filé Mignon)": [22, 143, 0, 5],
-      "Carne (Fígado)": [20, 135, 3.9, 3.6],
-      "Carne (Frango)": [23, 165, 0, 4],
-      "Ovo": [13, 155, 1.1, 11],
-      "Guaraná": [0, 40, 10, 0],
-      "Coca Cola": [0, 42, 11, 0],
-      "Água": [0, 0, 0, 0],
-      "Suco Del Valle": [0.5, 50, 12, 0],
-      "Suco Maguary": [0.5, 48, 11, 0],
-      "Suco Do Bem": [0.5, 45, 10, 0],
-      "Suco Natural": [0.5, 40, 9, 0],
-      "Suco Tang": [0, 38, 9.4, 0],
-      "Abobrinha": [1.2, 17, 3.1, 0.3],
-      "Molho de Tomate": [1.2, 29, 6, 0.2],
-      "Farinha de Trigo": [10, 364, 76, 1],
-      "Farinha de Centeio": [7.3, 335, 75, 1.5],
-      "Aveia (flocos)": [12, 389, 66, 7],
-      "Aveia (farinha)": [13, 370, 65, 7],
-      "Leite de Soja": [3.5, 45, 2, 1.5],
-      "Leite Desnatado": [3.4, 35, 5, 0.1],
-      "Leite Integral": [3.3, 61, 5, 3.2],
-      "Óleo de Soja": [0, 884, 0, 100],
-      "Óleo de Girassol": [0, 884, 0, 100],
-      "Manteiga": [0.5, 717, 0, 81],
-      "Azeite de Oliva": [0, 884, 0, 100],
-      "Leite em Pó": [26, 496, 38, 27],
-      "Nescau": [6, 378, 75, 4],
-      "Toddy": [6, 380, 75, 4],
-      "Nesquik": [6, 390, 76, 3.5],
-      "Batata": [2, 77, 17, 0.1],
-      "Batata Doce": [1.6, 86, 20, 0],
-      "Alface": [1.4, 15, 2.9, 0.2],
-      "Brócolis": [2.8, 34, 7, 0.4],
-      "Amendoim": [26, 567, 16, 49],
-      "Açúcar": [0, 387, 100, 0]
+  // === FRUTAS ===
+"Açaí": [70, 1.4, 6.2, 5],
+"Ameixa Seca": [240, 2.2, 64, 0.4],
+"Framboesa": [52, 1.2, 12, 0.7],
+"Graviola": [66, 1, 17, 0.3],
+"Jabuticaba": [58, 0.6, 15, 0.1],
+"Jaca": [95, 1.7, 24, 0.6],
+"Jambo": [25, 0.7, 6, 0.3],
+"Pitanga": [41, 1, 10, 0.4],
+"Romã": [83, 1.7, 19, 1.2],
+
+// === CARNES ===
+// Bovinas específicas:
+"Cupim": [250, 28, 0, 15],
+"Rabadão": [190, 26, 0, 9],
+
+// Suínas específicas:
+"Costela Suína": [397, 21, 0, 35],
+"Mortadela": [311, 15, 2, 26],
+"Linguiça": [325, 15, 2, 29],
+
+// Aves/Misc:
+"Pato": [337, 19, 0, 28],
+"Codorna": [134, 22, 0, 4.5],
+
+// Peixes e Frutos do Mar específicos:
+"Polvo": [82, 15, 2, 1],
+"Tucunaré": [96, 20, 0, 1.2],
+"Dourado": [105, 22, 0, 2],
+"Pintado": [108, 22, 0, 2.3],
+
+// === QUEIJOS ===
+"Queijo Brie": [334, 21, 0.5, 28],
+"Queijo Camembert": [300, 20, 0.5, 24],
+"Queijo Gorgonzola": [353, 21, 2, 29],
+"Queijo Roquefort": [369, 22, 2, 31],
+"Queijo Gruyère": [413, 29, 0.4, 32],
+"Queijo Emmental": [382, 29, 3, 28],
+"Queijo Feta": [264, 14, 4, 21],
+"Queijo Provolone": [351, 25, 2, 27],
+
+// === VEGETAIS / VERDURAS ===
+"Jiló": [27, 1.8, 5.7, 0.1],
+"Couve": [28, 4.3, 4.4, 0.4],
+"Couve-flor": [25, 1.9, 5, 0.3],
+"Rúcula": [25, 2.6, 3.7, 0.7],
+"Vagem": [35, 1.8, 7, 0.2],
+
+// === TEMP. e ESPECIARIAS ===
+"Açafrão": [310, 11, 65, 6],
+"Alecrim": [131, 3.3, 20, 5.9],
+"Basilico": [22, 3.2, 2.6, 0.6],
+"Canela": [247, 4, 81, 1.2],
+"Cominho": [375, 18, 44, 22],
+"Cravo": [274, 6, 65, 13],
+"Curry": [325, 14, 58, 14],
+"Noz-moscada": [525, 6, 49, 36],
+"Orégano": [265, 9, 69, 4.3],
+"Páprica": [282, 14, 54, 13],
+"Pimenta do Reino": [251, 10, 64, 3.3],
+"Pimenta Cayenne": [318, 12, 57, 17],
+"Tomilho": [101, 5.6, 24, 1.7],
+
+// === LEGUMINOSAS ===
+"Grão de Bico": [164, 8, 27, 2.6],
+"Soja": [446, 36, 30, 20],
+
+// === OLEAGINOSAS ===
+"Macadâmia": [718, 8, 14, 76],
+"Pistache": [560, 20, 28, 45],
+"Avelã": [628, 15, 17, 61],
+"Castanha do Brasil": [659, 14, 12, 67],
+
+// === MOLHOS ===
+"Molho Hoisin": [220, 5, 35, 5],
+"Molho Chimichurri": [89, 1.2, 3.4, 8.9],
+"Molho Tártaro": [194, 0.6, 1.8, 20.2],
+"Molho Verde": [45, 2.1, 4.2, 2.8],
+
+// === CHURRASCO ===
+"Coração de Galinha": [185, 26, 0.7, 8],
+"Linguiça Calabresa": [296, 17, 2, 25],
+"Linguiça Toscana": [315, 16, 3, 27],
+"Morcilla": [379, 15, 1, 35],
+"Paio": [380, 18, 2, 34],
+"Queijo Coalho Grelhado": [313, 21, 3, 24],
+
+// === PIMENTAS e PIMENTÕES ===
+"Pimenta Dedo de Moça": [40, 1.9, 8.8, 0.4],
+"Pimenta Malagueta": [40, 1.9, 8.8, 0.4],
+"Pimenta Biquinho": [30, 1.5, 6.5, 0.3],
+"Pimenta Cumari": [318, 12, 57, 17],
+"Pimenta Habanero": [40, 1.9, 8.8, 0.4],
+"Pimenta Jalapeño": [29, 0.9, 6.5, 0.4],
+"Pimentão Roxo": [24, 0.9, 5.5, 0.2],
+
+// === ESPECÍFICOS POR PAÍS ===
+"Açaí na Tigela": [58, 0.8, 3.9, 4.4],
+"Farofa de Mandioca": [296, 2.3, 69, 0.5],
+"Tapioca": [358, 0.6, 88, 0.2],
+"Guaraná": [42, 0, 11, 0],
+"Xarope de Bordo": [260, 0, 67, 0.2],
+"Doce de Leite": [315, 7, 55, 7],
+"Mate": [1, 0.2, 0, 0],
+"Molho Agridoce": [180, 0.5, 45, 0.2],
+"Chucrute": [19, 0.9, 4.3, 0.1],
+"Azeite de Oliva": [884, 0, 0, 100],
+"Vinagre Balsâmico": [88, 0.5, 17, 0],
+
+// === OUTROS ALIMENTOS ESSENCIAIS ===
+"Polvilho": [351, 0.2, 86, 0.3],
+
+// === OUTROS ALIMENTOS ESSENCIAIS ===
+"Polvilho Azedo": [351, 0.2, 86, 0.3],
+
+"Abacate": [160, 2, 9, 15],
+  "Abacaxi": [50, 0.5, 13, 0.1],
+  "Abobrinha": [17, 1.2, 3.1, 0.3],
+  "Açafrão": [310, 11, 65, 6],
+  "Açúcar": [387, 0, 100, 0],
+  "Acelga": [19, 1.8, 3.7, 0.2],
+  "Agrião": [11, 2.3, 1.3, 0.1],
+  "Água": [0, 0, 0, 0],
+  "Água de Coco": [19, 0.7, 3.7, 0.2],
+  "Alecrim": [131, 3.3, 20, 5.9],
+  "Alface": [15, 1.4, 2.9, 0.2],
+  "Alho": [149, 6.4, 33, 0.5],
+  "Alho-poró": [61, 1.5, 14, 0.3],
+  "Ameixa": [46, 0.7, 11, 0.3],
+  "Ameixa Seca": [240, 2.2, 64, 0.4],
+  "Amendoim": [567, 26, 16, 49],
+  "Amêndoa": [579, 21, 22, 50],
+  "Amora": [43, 1.4, 10, 0.5],
+  "Anchova": [131, 20, 0, 4.8],
+  "Aniz": [337, 18, 50, 16],
+  "Arroz": [130, 2.7, 28, 0.3],
+  "Arroz Integral": [111, 2.6, 23, 0.9],
+  "Atum": [144, 25, 0, 4.9],
+  "Aveia (farinha)": [370, 13, 65, 7],
+  "Aveia (flocos)": [389, 12, 66, 7],
+  "Avelã": [628, 15, 17, 61],
+  "Azeitona": [115, 0.8, 6, 11],
+  "Azeite de Oliva": [884, 0, 0, 100],
+  "Bacalhau": [82, 18, 0, 0.7],
+  "Bacon": [541, 37, 1.4, 42],
+  "Banana": [89, 1.1, 23, 0.3],
+  "Batata": [77, 2, 17, 0.1],
+  "Batata Doce": [86, 1.6, 20, 0],
+  "Berinjela": [25, 1, 6, 0.2],
+  "Beterraba": [43, 1.6, 10, 0.2],
+  "Brócolis": [34, 2.8, 7, 0.4],
+  "Cacau em Pó": [228, 20, 58, 14],
+  "Café": [2, 0.3, 0, 0],
+  "Cajú": [553, 18, 30, 44],
+  "Camarão": [106, 20, 0.9, 1.7],
+  "Canela": [247, 4, 81, 1.2],
+  "Caqui": [70, 0.6, 19, 0.2],
+  "Caranguejo": [97, 19, 0, 1.5],
+  "Carne (Filé Mignon)": [143, 22, 0, 5],
+  "Carne (Fígado)": [135, 20, 3.9, 3.6],
+  "Carne (Frango)": [165, 23, 0, 4],
+  "Carne (Patinho)": [160, 21, 0, 7],
+  "Carne (Porco)": [271, 27, 0, 18],
+  "Castanha-do-Pará": [656, 14, 12, 66],
+  "Cebola": [40, 1.1, 9, 0.1],
+  "Cenoura": [41, 0.9, 10, 0.2],
+  "Cerejas": [63, 1, 16, 0.2],
+  "Chá": [1, 0, 0.3, 0],
+  "Chuchu": [19, 0.8, 4.5, 0.1],
+  "Coca Cola": [42, 0, 11, 0],
+  "Coco": [354, 3.3, 15, 33],
+  "Coentro": [23, 2.1, 3.7, 0.5],
+  "Cogumelo": [22, 3.1, 3.3, 0.3],
+  "Couve": [49, 4.3, 9, 0.7],
+  "Couve-flor": [25, 1.9, 5, 0.3],
+  "Ervilha": [81, 5.4, 14, 0.4],
+  "Espinafre": [23, 2.9, 3.6, 0.4],
+  "Farofa": [300, 5, 50, 10],
+  "Farinha de Centeio": [335, 7.3, 75, 1.5],
+  "Farinha de Trigo": [364, 10, 76, 1],
+  "Feijão": [127, 8.3, 23.7, 0.5],
+  "Figo": [74, 0.8, 19, 0.3],
+  "Framboesa": [52, 1.2, 12, 0.7],
+  "Gengibre": [80, 1.8, 18, 0.8],
+  "Goiaba": [68, 2.6, 14, 1],
+  "Grão-de-Bico": [164, 8.9, 27, 2.6],
+  "Guaraná": [40, 0, 10, 0],
+  "Iogurte": [59, 3.5, 4.7, 3.3],
+  "Kiwi": [61, 1.1, 15, 0.5],
+  "Laranja": [47, 0.9, 12, 0.1],
+  "Leite Desnatado": [35, 3.4, 5, 0.1],
+  "Leite em Pó": [496, 26, 38, 27],
+  "Leite Integral": [61, 3.3, 5, 3.2],
+  "Leite de Soja": [45, 3.5, 2, 1.5],
+  "Lentilha": [116, 9, 20, 0.4],
+  "Limão": [29, 1.1, 9, 0.3],
+  "Linguiça": [301, 17, 2, 25],
+  "Maçã": [52, 0.3, 14, 0.2],
+  "Mamão": [43, 0.5, 11, 0.3],
+  "Manga": [60, 0.8, 15, 0.4],
+  "Manteiga": [717, 0.5, 0, 81],
+  "Maracujá": [97, 2.2, 23, 0.7],
+  "Mel": [304, 0.3, 82, 0],
+  "Melancia": [30, 0.6, 8, 0.2],
+  "Melão": [34, 0.8, 8, 0.2],
+  "Milho": [86, 3.3, 19, 1.4],
+  "Molho de Tomate": [29, 1.2, 6, 0.2],
+  "Morango": [32, 0.7, 8, 0.3],
+  "Nescau": [378, 6, 75, 4],
+  "Nesquik": [390, 6, 76, 3.5],
+  "Noz": [654, 15, 14, 65],
+  "Óleo de Girassol": [884, 0, 0, 100],
+  "Óleo de Soja": [884, 0, 0, 100],
+  "Ovo": [155, 13, 1.1, 11],
+  "Pão": [265, 9, 49, 3.2],
+  "Páprica": [282, 14, 54, 13],
+  "Pastel": [312, 7, 30, 18],
+  "Pêra": [57, 0.4, 15, 0.1],
+  "Pêssego": [39, 0.9, 10, 0.3],
+  "Pimentão": [31, 1, 7, 0.3],
+  "Pimenta": [40, 2, 9, 0.4],
+  "Queijo": [353, 25, 1.3, 28],
+  "Quinoa": [368, 14, 64, 6],
+  "Rabanete": [16, 0.7, 3.4, 0.1],
+  "Salmão": [208, 20, 0, 13],
+  "Sardinha": [208, 25, 0, 11],
+  "Suco Del Valle": [50, 0.5, 12, 0],
+  "Suco Do Bem": [45, 0.5, 10, 0],
+  "Suco Maguary": [48, 0.5, 11, 0],
+  "Suco Natural": [40, 0.5, 9, 0],
+  "Suco Tang": [38, 0, 9.4, 0],
+  "Toddy": [380, 6, 75, 4],
+  "Tomate": [18, 0.9, 3.9, 0.2],
+  "Uva": [69, 0.7, 18, 0.2],
+  "Vagem": [35, 1.8, 7.9, 0.1],
+  "Vinagre": [21, 0, 0.9, 0],
+  "Wasabi": [109, 4.6, 24, 0.6],
+  "Yakisoba": [138, 5, 22, 4]
+
     };
 
     function mostrarTela(id) {
@@ -802,17 +1001,75 @@
       const tr = document.createElement("tr");
       tr.style.animation = "fadeInUp 0.5s ease-out";
 
-      // Coluna do alimento
-      const td1 = document.createElement("td");
-      const sel = document.createElement("select");
-      Object.keys(dados).forEach(k => {
-        const o = document.createElement("option");
-        o.value = k;
-        o.textContent = k;
-        sel.appendChild(o);
-      });
-      td1.appendChild(sel);
-      tr.appendChild(td1);
+ // Coluna do alimento com barra de busca estilizada
+const td1 = document.createElement("td");
+
+// Campo de pesquisa estilizado
+const searchInput = document.createElement("input");
+searchInput.type = "text";
+searchInput.placeholder = "🔍 Pesquisar alimento...";
+searchInput.style.width = "100%";
+searchInput.style.marginBottom = "6px";
+searchInput.style.padding = "8px 12px";
+searchInput.style.border = "2px solid #A5D6A7";
+searchInput.style.borderRadius = "10px";
+searchInput.style.outline = "none";
+searchInput.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+searchInput.style.transition = "all 0.3s ease";
+searchInput.style.backgroundColor = "#f0fff0";
+searchInput.style.fontWeight = "500";
+searchInput.style.color = "#2c3e50";
+searchInput.addEventListener("focus", () => {
+  searchInput.style.borderColor = "#66bb6a";
+  searchInput.style.boxShadow = "0 0 6px rgba(102,187,106,0.5)";
+});
+searchInput.addEventListener("blur", () => {
+  searchInput.style.borderColor = "#A5D6A7";
+  searchInput.style.boxShadow = "0 2px 5px rgba(0,0,0,0.1)";
+});
+
+// Select estilizado
+const sel = document.createElement("select");
+sel.style.width = "100%";
+sel.style.padding = "8px 12px";
+sel.style.border = "2px solid #A5D6A7";
+sel.style.borderRadius = "10px";
+sel.style.backgroundColor = "#ffffff";
+sel.style.fontWeight = "500";
+sel.style.color = "#2c3e50";
+sel.style.outline = "none";
+sel.style.transition = "all 0.3s ease";
+sel.addEventListener("focus", () => {
+  sel.style.borderColor = "#66bb6a";
+});
+sel.addEventListener("blur", () => {
+  sel.style.borderColor = "#A5D6A7";
+});
+
+// Função para atualizar opções com base na busca
+function atualizarOpcoes(filtro = "") {
+  sel.innerHTML = "";
+  Object.keys(dados).forEach(k => {
+    if (k.toLowerCase().includes(filtro.toLowerCase())) {
+      const o = document.createElement("option");
+      o.value = o.textContent = k;
+      sel.appendChild(o);
+    }
+  });
+  calcularTotais();
+}
+
+atualizarOpcoes();
+
+// Evento de digitação no campo de busca
+searchInput.addEventListener("input", () => {
+  atualizarOpcoes(searchInput.value);
+});
+
+td1.appendChild(searchInput);
+td1.appendChild(sel);
+sel.onchange = calcularTotais; //Essa linha faz calcular
+tr.appendChild(td1);
 
       // Coluna da quantidade
       const td2 = document.createElement("td");
@@ -855,49 +1112,51 @@
       calcularTotais();
     }
 
-    function calcularTotais() {
-      let prot = 0, cal = 0, carb = 0, gord = 0;
-      
-      document.querySelectorAll("#tabela tr").forEach(tr => {
-        const sel = tr.querySelector("select");
-        const input = tr.querySelector("input");
-        
-        if (sel && input) {
-          const alimento = sel.value;
-          const qtd = parseFloat(input.value) || 0;
-          const [p, c, ca, g] = dados[alimento] || [0, 0, 0, 0];
-          
-          // Atualizar células da linha
-          tr.cells[2].textContent = ((p * qtd) / 100).toFixed(1);
-          tr.cells[3].textContent = ((c * qtd) / 100).toFixed(0);
-          tr.cells[4].textContent = ((ca * qtd) / 100).toFixed(1);
-          tr.cells[5].textContent = ((g * qtd) / 100).toFixed(1);
-          
-          // Somar totais
-          prot += (p * qtd) / 100;
-          cal += (c * qtd) / 100;
-          carb += (ca * qtd) / 100;
-          gord += (g * qtd) / 100;
-        }
-      });
+   function calcularTotais() {
+  let cal = 0, prot = 0, carb = 0, gord = 0;
 
-      document.getElementById("totais").innerHTML = `
-        <h3>📊 Totais Nutricionais</h3>
-        <p><strong>🥩 Proteínas:</strong> ${prot.toFixed(1)} g</p>
-        <p><strong>🔥 Calorias:</strong> ${cal.toFixed(0)} kcal</p>
-        <p><strong>🍞 Carboidratos:</strong> ${carb.toFixed(1)} g</p>
-        <p><strong>🥑 Gorduras:</strong> ${gord.toFixed(1)} g</p>
-      `;
+  document.querySelectorAll("#tabela tr").forEach(tr => {
+    const tds = tr.querySelectorAll("td");
+    const sel = tds[0]?.querySelector("select");
+    const input = tds[1]?.querySelector("input");
+
+    if (sel && input) {
+      const alimento = sel.value;
+      const qtd = parseFloat(input.value) || 0;
+      const [c, p, ca, g] = dados[alimento] || [0, 0, 0, 0];
+
+      // Atualizar células da linha
+      tr.cells[2].textContent = ((c * qtd) / 100).toFixed(0);
+      tr.cells[3].textContent = ((p * qtd) / 100).toFixed(1);
+      tr.cells[4].textContent = ((ca * qtd) / 100).toFixed(1);
+      tr.cells[5].textContent = ((g * qtd) / 100).toFixed(1);
+
+      // Somar totais
+      cal += (c * qtd) / 100;
+      prot += (p * qtd) / 100;
+      carb += (ca * qtd) / 100;
+      gord += (g * qtd) / 100;
     }
+  });
+
+  document.getElementById("totais").innerHTML = `
+    <h3>📊 Totais Nutricionais</h3>
+    <p><strong>🔥 Calorias:</strong> ${cal.toFixed(0)} kcal</p>
+    <p><strong>🥩 Proteínas:</strong> ${prot.toFixed(1)} g</p>
+    <p><strong>🍞 Carboidratos:</strong> ${carb.toFixed(1)} g</p>
+    <p><strong>🥑 Gorduras:</strong> ${gord.toFixed(1)} g</p>
+  `;
+}
+
 
     // Preencher selects do formulário
-    for (let i = 12; i <= 100; i++) {
+    for (let i = 7; i <= 100; i++) {
       document.getElementById("idade").innerHTML += `<option value="${i}">${i} anos</option>`;
     }
-    for (let i = 30; i <= 200; i++) {
+    for (let i = 10; i <= 350; i++) {
       document.getElementById("peso").innerHTML += `<option value="${i}">${i} kg</option>`;
     }
-    for (let i = 140; i <= 220; i++) {
+    for (let i = 70; i <= 220; i++) {
       document.getElementById("altura").innerHTML += `<option value="${i}">${i} cm</option>`;
     }
 
@@ -946,7 +1205,7 @@
       document.getElementById("resultado").innerHTML = `
         <h3>📈 Seus Resultados Personalizados</h3>
         <p><strong>📊 IMC:</strong> <span style="color: ${corIMC}; font-weight: bold;">${imc.toFixed(1)} (${classificacaoIMC})</span></p>
-        <p><strong>⚡ Taxa Metabólica Basal:</strong> ${bmr.toFixed(0)} kcal/dia</p>
+        <p><strong>⚡ Taxa Metabólica Basal (Para se manter vivo):</strong> ${bmr.toFixed(0)} kcal/dia</p>
         <p><strong>🎯 Calorias para manter peso:</strong> ${tmb.toFixed(0)} kcal/dia</p>
         <p><strong>💪 Massa magra estimada:</strong> ${massaMagra} kg</p>
         <p><strong>📉 Para emagrecer:</strong> <span style="color: #e74c3c; font-weight: bold;">${(tmb * 0.8).toFixed(0)} kcal/dia</span></p>
@@ -955,47 +1214,57 @@
 
       document.getElementById("shakes").style.display = "block";
       document.getElementById("shakes").innerHTML = `
-        <h3>🥤 Receitas de Shakes Premium</h3>
-        <div class="shake-item">
-          <strong>🍎 Shake Emagrecedor Detox:</strong><br>
-          • 1/2 Maçã verde<br>
-          • 1 colher (chá) de canela<br>
-          • 200ml de leite desnatado<br>
-          • Gelo e hortelã fresca<br>
-          <em>💡 Rico em fibras e antioxidantes</em>
-        </div>
-        <div class="shake-item">
-          <strong>🍓 Shake Antioxidante Power:</strong><br>
-          • 1 xícara de morangos frescos<br>
-          • 1 colher (sopa) de linhaça<br>
-          • 200ml de água de coco<br>
-          • Adoçante natural (stevia)<br>
-          <em>💡 Combate o envelhecimento precoce</em>
-        </div>
-        <div class="shake-item">
-          <strong>🥕 Shake Detox Energizante:</strong><br>
-          • 1 Cenoura média<br>
-          • Suco de 2 laranjas<br>
-          • 1 pedaço pequeno de gengibre<br>
-          • Folhas de hortelã<br>
-          <em>💡 Aumenta a imunidade e energia</em>
-        </div>
-        <div class="shake-item">
-          <strong>🌿 Shake Verde Alcalinizante:</strong><br>
-          • Punhado de folhas de espinafre<br>
-          • 1/2 abacate maduro<br>
-          • 300ml de água de coco<br>
-          • Suco de 1/2 limão<br>
-          <em>💡 Equilibra o pH do organismo</em>
-        </div>
-        <div class="shake-item">
-          <strong>🍌 Shake Pós-Treino:</strong><br>
-          • 1 banana madura<br>
-          • 1 scoop de whey protein<br>
-          • 200ml de leite desnatado<br>
-          • 1 colher (sopa) de pasta de amendoim<br>
-          <em>💡 Recuperação muscular otimizada</em>
-        </div>
+ <h3>🍽️ Top 10 Dicas do Rodrigo para Manter sua Dieta e Nutrição em Dia</h3>
+<div class="dica-item">
+  <strong>✅ 1. Planeje suas refeições:</strong><br>
+  Organize o que vai comer durante a semana para evitar escolhas por impulso.
+</div>
+
+<div class="dica-item">
+  <strong>🥦 2. Coma alimentos naturais:</strong><br>
+  Prefira alimentos "de verdade" (frutas, legumes, carnes) e evite os ultraprocessados.
+</div>
+
+<div class="dica-item">
+  <strong>🥤 3. Beba bastante água:</strong><br>
+  A sede pode ser confundida com fome. Hidrate-se o dia todo!
+</div>
+
+<div class="dica-item">
+  <strong>🕒 4. Não pule refeições:</strong><br>
+  Comer regularmente mantém o metabolismo ativo e evita exageros.
+</div>
+
+<div class="dica-item">
+  <strong>🍽️ 5. Coma devagar:</strong><br>
+  Mastigue bem e aproveite cada mordida. Dá tempo pro cérebro entender que você já está satisfeito.
+</div>
+
+<div class="dica-item">
+  <strong>🛌 6. Durma bem:</strong><br>
+  Poucas horas de sono aumentam o apetite e reduzem a força de vontade.
+</div>
+
+<div class="dica-item">
+  <strong>💪 7. Combine com atividade física:</strong><br>
+  Exercício regular ajuda a manter os resultados e queimar calorias extras.
+</div>
+
+<div class="dica-item">
+  <strong>📏 8. Tenha metas realistas:</strong><br>
+  Em vez de querer perder 10kg em 1 mês, foque em melhorar seus hábitos aos poucos.
+</div>
+
+<div class="dica-item">
+  <strong>🎉 9. Permita-se com moderação:</strong><br>
+  Um doce ou lanche fora da dieta de vez em quando não vai arruinar seu progresso.
+</div>
+
+<div class="dica-item">
+  <strong>📘 10. Aprenda sobre o que come:</strong><br>
+  Saber o valor nutricional dos alimentos ajuda a fazer melhores escolhas todos os dias.
+</div>
+
       `;
 
       // Scroll suave para os resultados
